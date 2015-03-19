@@ -1,0 +1,37 @@
+{% extends "my_resume/base.html" %}
+{% load resume_tags %}
+{% block my-title %}Compétences &gt; {{ block.super }}{% endblock %}
+{% block my-content %}
+<div class="page-header">
+  <h1><i class="icon-aperture"></i> Compétences</h1>
+</div>
+<div>
+  <p>Vivement captivé depuis mon plus jeune âge par l'informatique, j'ai tout d'abord été attiré par le développement, de manière auto-didacte. Au fur et à mesure de mes projets en développement, j'ai commencé à m'intéresser à l'infrastructure systèmes et réseaux, enrichissant ainsi mes domaines de compétences. Puis, j'ai découvert l'open-source, domaine pour lequel je me suis très vite passionné. Aujourd'hui, comme depuis toujours, j'aime me tenir informé des nouvelles technologies et continuer d'apprendre.</p>
+</div>
+<div class="skills">
+{% for category in skills|skills_by_category %}
+  <div class="category">
+    <h2>{{ category.0.label }}</h2>
+{%   for skill in category.1 %}
+    <div class="row">
+      <div class="col-md-3">{{ skill.label }}</div>
+      <div class="col-md-9">
+        <div class="progress" style="width: 50%" data-toggle="tooltip" data-placement="right" title="{{ skill.level_label }}">
+          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="{{ skill.level }}" aria-valuemin="0" aria-valuemax="4" style="width: {{ skill|skill_level }}%"></div>
+        </div>
+      </div>
+    </div>
+{%   endfor %}
+  </div>
+{% endfor %}
+</div>
+{% endblock %}
+{% block footer_javascript %}
+<script type="text/javascript">
+	// <!--
+	$(function () {
+		$('[data-toggle="tooltip"]').tooltip()
+	})
+	// -->
+</script>
+{% endblock %}

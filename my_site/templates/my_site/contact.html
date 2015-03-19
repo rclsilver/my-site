@@ -1,0 +1,28 @@
+{% extends "my_site/base.html" %}
+{% load staticfiles %}
+{% load core_tags %}
+{% block my-title %}Contact &gt; {{ block.super }}{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/brief.css' %}">
+<!--[if IE 7]>
+  <link rel="stylesheet" href="{% static 'css/brief-ie7.css' %}">
+<![endif]-->
+{% endblock %}
+{% block my-content %}
+<div class="page-header">
+  <h1><i class="icon-mail-alt"></i> Contact</h1>
+</div>
+<div>
+  <p>Intéressé par mon profil ? Besoin d'un complément d'information ? Téléchargez ma carte de visite au format vCard pour m'ajouter facilement à votre carnet d'adresses, envoyez-moi un courrier électronique ou contactez-moi par téléphone !</p>
+  <p>Vous pouvez également me contacter via les réseaux sociaux, notamment via mon profil LinkedIn.</p>
+  <br />
+</div>
+<div class="row">
+  <div class="col-md-6 col-xs-nl"><a href="{% vcard_url %}" class="btn btn-info btn-lg full-width"><i class="icon-vcard white"></i> Carte de visite</a></div>
+  <div class="col-md-6 col-xs-nl"><a href="mailto:{{ email }}" class="btn btn-info btn-lg full-width"><i class="icon-mail-alt white"></i> {{ email }}</a></div>
+</div>
+<div class="row">
+  <div class="col-md-6 col-xs-nl"><a href="tel:{{ phone }}" class="btn btn-info btn-lg full-width"><i class="icon-phone white"></i> {{ phone }}</a></div>
+  <div class="col-md-6 col-xs-nl"><a href="{{ linked_in }}" class="btn btn-info btn-lg full-width" target="_blank"><i class="icon-linkedin-squared white"></i> Mon profil LinkedIn</a></div>
+</div>
+{% endblock %}

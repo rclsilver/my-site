@@ -1,0 +1,80 @@
+{% load staticfiles %}
+{% load core_tags %}
+{% load resume_tags %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all" />
+    <meta name="keywords" content="{% block my-meta-keywords %}thomas betrancourt, ingenieur, systemes, reseaux{% endblock %}" />
+    <meta name="description" content="{% block my-meta-description %}Thomas Bétrancourt, Ingénieur Systèmes et Réseaux{% endblock %}" />
+    <meta name="author" content="Thomas Bétrancourt" />
+    {% block my-meta %}{% endblock %}
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" />
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon" />
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png" />
+    <title>{% block my-title %}Thomas Bétrancourt, Ingénieur Systèmes et Réseaux{% endblock%}</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/default.css' %}">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+{% if GOOGLE_ANALYTICS %}
+    <script type="text/javascript">
+    	var _gaq = _gaq || [];
+    	_gaq.push(['_setAccount', '{{ GOOGLE_ANALYTICS_ACCOUNT }}']);
+    	_gaq.push(['_trackPageview']);
+
+    	(function() {
+    		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    	})();
+    </script>
+{% endif %}
+
+    {% block css %}{% endblock %}
+    {% block head_javascript %}{% endblock %}
+  </head>
+  <body class="{% block my-body-class %}{% endblock %}">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% home_url %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="{% current_page_class 'resume:download' %}"><a href="{% resume_download_url %}">CV</a></li>
+            <li class="{% current_page_class 'contact' %}"><a href="{% contact_url %}">Contact</a></li>
+          </ul>
+          <ul class="nav navbar-nav">
+            <li class="{% current_page_class 'resume:formations' %}"><a href="{% resume_formations_url %}">Diplômes</a></li>
+            <li class="{% current_page_class 'resume:skills' %}"><a href="{% resume_skills_url %}">Compétences</a></li>
+            <li class="{% current_page_class 'resume:jobs' %}"><a href="{% resume_jobs_url %}">Expériences</a></li>
+            <li class="{% current_page_class 'resume:hobbies' %}"><a href="{% resume_hobbies_url %}">Loisirs</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="content">{% block my-content %}{% endblock %}</div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    {% block footer_javascript %}{% endblock %}
+  </body>
+</html>

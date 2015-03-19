@@ -1,0 +1,33 @@
+{% extends "my_resume/base.html" %}
+{% load resume_tags %}
+{% block my-title %}Loisirs &gt; {{ block.super }}{% endblock %}
+{% block my-content %}
+<div class="page-header">
+  <h1><i class="icon-paper-plane"></i> Loisirs</h1>
+</div>
+<div>
+  <p>Car il n'y a pas que l'informatique dans la vie, je profite de mes temps-libres pour sortir, m'évader (que ce soit dans la nature, ou dans un bon film). J'aime passer du temps avec ma famille, mes amis, pour me ressourcer.</p>
+  <p>Je trouve également agréable de découvrir le patrimoine (naturel ou culturel), activité que je pratique depuis longtemps mais qui s'est renforcée depuis que l'on m'a recommandé une application mobile proposant de partir à la recherche de &laquo; caches &raquo;. C'est une application très ludique qui permet de visiter de nouveaux lieux facilement.</p>
+</div>
+<div class="hobbies">
+  <div class="row">
+{% for category in hobbies.all %}
+    <div class="category col-md-6">
+      <h2><i class="{{ category.icon_class }}"></i> {{ category.label }}</h2>
+      <ul style="margin-left: 2em">
+{%   for hobby in category.hobbies.all %}
+        <li>{{ hobby.name }}</li>
+{%   endfor %}
+      </ul>
+    </div>
+{%   if not forloop.last and forloop.counter|divisibleby:2  %}
+  </div>
+  <div class="row">
+{%   endif %}
+{%   if forloop.last and not forloop.counter|divisibleby:2 %}
+    <div class="col-md-6"></div>
+{%   endif %}
+{% endfor %}
+  </div>
+</div>
+{% endblock %}

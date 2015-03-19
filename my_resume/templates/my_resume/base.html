@@ -1,0 +1,8 @@
+{% extends "my_site/base.html" %}
+{% load staticfiles %}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/brief.css' %}">
+  <!--[if IE 7]>
+    <link rel="stylesheet" href="{% static 'css/brief-ie7.css' %}">
+  <![endif]-->
+{% endblock %}

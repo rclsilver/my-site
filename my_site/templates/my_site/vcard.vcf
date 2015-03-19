@@ -1,0 +1,7 @@
+BEGIN:VCARD
+VERSION:3.0
+N:{{ last_name }};{{ first_name }}
+FN:{{ first_name }} {{ last_name }}
+TEL;TYPE=CELL,VOICE:{{ phone }}
+EMAIL;TYPE=PREF,INTERNET:{{ email }}
+END:VCARD

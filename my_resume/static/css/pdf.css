@@ -1,0 +1,146 @@
+/**********
+ * Layout *
+ **********/
+@page {
+	size: A4;
+
+	@frame content_frame {
+		top: 25pt;
+		left: 25pt;
+		width: 545pt;
+		height: 792pt;
+    }
+}
+
+/********
+ * Page *
+ ********/
+body {
+	font-family: 'Verdana';
+	color: #666666;
+}
+ 
+ 
+.icon {
+	font-family: 'brief';	
+	display: inline-block;
+	margin-right: .2em;
+	margin-left: .2em;
+	text-align: center;
+	width: 2em;
+}
+
+.blue {
+	color: #33CCFF;
+}
+
+h2 {
+	border-left: 2px solid #33CCFF;
+	border-bottom: 2px solid #33CCFF;
+	padding-left: 0.5em;
+	padding-bottom: -0.3em;
+	font-size: 1.5em;
+	color: #33CCFF;
+}
+
+/**********
+ * Entête *
+ **********/
+table.header {
+	width: 100%;
+}
+ 
+td.header_left {
+	vertical-align: top;
+	text-align: left;
+}
+
+td.header_left_bottom {
+	vertical-align: middle;
+	text-align: left;
+}
+
+td.header_center {
+	vertical-align: top;
+	text-align: center;
+}
+
+td.header_right {
+	vertical-align: top;
+	text-align: right;
+}
+
+h1.header_name {
+	font-family: 'Girls_Have_Many_Secrets';
+	font-size: 3em;
+	margin: 0;
+}
+
+span.header_title {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+span.header_site {
+	font-size: 1.5em;
+}
+
+p.header_birth, p.header_phone, p.header_mail, p.header_location {
+	font-size: 1.5em;
+}
+
+a.header_site, a.header_mail {
+	text-decoration: none;
+	color: inherit;
+}
+
+p.hr {
+	width: 100%;
+	border-top: 1px solid #C5C5C5;
+	margin-top: 3em;
+	margin-bottom: 2em;
+}
+
+ul {
+	line-height: 1em;
+}
+
+/********
+ * Jobs *
+ ********/
+h2.job_title {
+	font-size: 1.2em;
+}
+
+span.job_date {
+	color: #C5C5C5;
+}
+
+p.job_subtitle {
+	padding-top: -1.7em;
+	font-style: italic;
+}
+
+div.job_description {
+	margin-left: 3em;
+}
+
+/********
+ * Formations *
+ ********/
+h2.formation_title {
+	font-size: 1.2em;
+}
+
+span.formation_date {
+	color: #C5C5C5;
+}
+
+p.formation_subtitle {
+	padding-top: -1.7em;
+	font-style: italic;
+}
+
+p.formation_description {
+	margin-left: 3em;
+}

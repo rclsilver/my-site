@@ -1,0 +1,22 @@
+{% extends "my_resume/base.html" %}
+{% load staticfiles %}
+{% load resume_tags %}
+{% block my-title %}Curriculum Vitae &gt; {{ block.super }}{% endblock %}
+{% block my-content %}
+<div class="page-header">
+  <h1><i class="icon-file-pdf"></i> Curriculum Vitae</h1>
+</div>
+<div>
+  <p>Vous êtes un recruteur en informatique ou un chef d'entreprise et vous êtes intéressé par mon profil, mes compétences ou encore mes projets ? Téléchargez dès maintenant mon Curriculum Vitae disponible sur ce site, au format PDF.</p>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <img class="shadow" src="{% static 'img/curriculum-vitae-preview.png' %}" style="margin-top: 2em;" alt="Prévisualisation du Curriculum Vitae"/>
+  </div>
+  <div class="col-md-7">
+    <h2>Téléchargement au format PDF</h2>
+    <p class="text-justify">Mon Curriculum Vitae au format PDF contient toutes les informations concernant mon profil. Si vous ne trouvez pas une information dans mon CV, n'hésitez pas à consulter l'ensemble du site internet ou à me contacter.</p>
+    <a href="{% resume_download_pdf_url %}" class="btn btn-info btn-lg" role="button"><i class="icon-file-pdf" style="color: #FFFFFF"></i> Télécharger</a>
+  </div>
+</div>
+{% endblock %}

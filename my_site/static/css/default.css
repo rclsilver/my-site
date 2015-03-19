@@ -1,0 +1,28 @@
+body {
+	font-family: 'Verdana';
+	color: #666666;
+}
+
+div.content {
+	padding: 40px 0;
+}
+
+img.shadow {
+	box-shadow: 0px 0px 10px 0px #BBB;
+}
+
+.text-blue, [class^="icon-"], [class*=" icon-"] {
+	color: #33CCFF;
+}
+
+.white {
+	color: #FFFFFF !important;
+}
+
+.full-width {
+	width: 100%;
+}
+
+.col-xs-nl {
+	margin-bottom: 1em;
+}
