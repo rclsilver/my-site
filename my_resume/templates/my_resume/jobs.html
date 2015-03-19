@@ -1,0 +1,58 @@
+{% extends "my_resume/timeline.html" %}
+{% load bbcode_tags %}
+{% load resume_tags %}
+{% block my-title %}Expériences &gt; {{ block.super }}{% endblock %}
+{% block my-content %}
+{% for job in jobs %}
+<!-- Modal -->
+<div class="job modal fade" id="job-{{ job.id }}" tabindex="-1" role="dialog" aria-labelledby="job-{{ job.id }}-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="job-{{ job.id }}-label">{{ job.title }}</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          <span class="text-info">{% if job.customer %}{{ job.customer }} pour {% endif %}{{ job.employer }}, {{ job.location }}</span><br />
+          <small class="text-muted"><i class="glyphicon glyphicon-time"></i> {% if job.end_date %}{{ job.start_date|date:"M Y" }} - {{ job.end_date|date:"M Y" }}{% else %}depuis {{ job.start_date|date:"M Y" }}{% endif %}</small>
+        </p>
+        <p>{{ job.short_description|bbcode|safe }}</p>
+        {{ job.description|bbcode|safe }}
+      </div>
+      <div class="modal-footer">
+        <p class="text-left">
+        {% for category in job.skills|skills_by_category %}
+          <span><b>{{ category.0.label }} :</b> {{ category.1|skills_list }}</span>{% if not forloop.last %}<br />{% endif %}
+        {% endfor %}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+<div class="page-header">
+  <h1><i class="icon-briefcase"></i> Expériences</h1>
+</div>
+<div>
+  <p>Désireux de mettre en pratique les savoirs et compétences acquis lors de mes développements personnels et mes études, j'ai souhaité accéder rapidement au monde de l'entreprise. Ce choix, mûrement réfléchi, m'a permis d'élargir mes champs de connaissances, de découvrir des technologies ainsi que des méthodes de travail.</p>
+  <p>Selon moi, le poste idéal me permettrait aussi bien de mettre à profit mes compétences (tant en développement qu'en infrastructure systèmes et réseaux) que d'en acquérir de nouvelles.</p>
+</div>
+<ul class="timeline">
+{% for job in jobs %}
+  <li{% if forloop.counter|divisibleby:2 %} class="timeline-inverted"{% endif %}>
+    <div class="timeline-badge clickable info" data-toggle="modal" data-target="#job-{{ job.id }}"><i class="icon-briefcase"></i></div>
+    <div class="timeline-panel">
+      <div class="timeline-heading">
+        <h4 class="timeline-title">{{ job.title }}</h4>
+        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{ job.start_date|date:"M Y" }}</small></p>
+      </div>
+      <div class="timeline-body">
+        <p>{{ job.short_description|bbcode|safe }}</p>
+        <p><a href="#" data-toggle="modal" data-target="#job-{{ job.id }}">En savoir plus</a></p>
+      </div>
+    </div>
+  </li>
+{% endfor %}
+</ul>
+{% endblock %}

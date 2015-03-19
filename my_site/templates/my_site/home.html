@@ -1,0 +1,74 @@
+{% extends "my_site/base.html" %}
+{% load staticfiles %}
+{% load core_tags %}
+{% load resume_tags %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/brief.css' %}">
+<!--[if IE 7]>
+  <link rel="stylesheet" href="{% static 'css/brief-ie7.css' %}">
+<![endif]-->
+<style type="text/css">
+    @font-face {
+    	font-family: "Girls_Have_Many_Secrets";
+    	src: url("{% static 'font/Girls_Have_Many_Secrets.ttf' %}");
+    }
+    
+    #header h1 {
+    	margin-bottom: 0;
+    }
+    
+    #header p.subtitle {
+    	font-size: 2em;
+    }
+    
+    #header img.picture {
+    	margin: 0;
+    	padding: 0;
+    }
+    
+    .page-header {
+    	padding-bottom: 0;
+    }
+    
+    #header .description {
+    	margin-top: 3em;
+    }
+</style>
+{% endblock %}
+{% block my-content %}
+<div id="header" class="page-header row">
+  <div class="col-md-6">
+    <h1 style="font-family: 'Girls_Have_Many_Secrets';">Thomas Bétrancourt</h1>
+    <p class="subtitle text-blue">Ingénieur Systèmes et Réseaux</p>
+    <blockquote class="description">
+      <p class="text-justify">Attiré dès mon plus jeune âge par l'informatique, j'ai aujourd'hui la chance de vivre de ma passion et d'exercer un métier dans lequel je me sens épanoui au quotidien.</p>
+      <small>Thomas</small>
+    </blockquote>
+  </div>
+  <div class="col-md-6">
+    <img class="picture" src="{% static 'img/thomas-betrancourt.png' %}" alt="Thomas Bétrancourt" />
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <h2><i class="icon-graduation-cap"></i> Diplômes</h2>
+    <p class="text-justify">Tremplin désormais indispensable vers le monde de l'entreprise, mes diplômes m'ont permis de m'y intégrer avec facilité.</p>
+    <a class="btn btn-default" role="button" href="{% resume_formations_url %}">En savoir plus »</a>
+  </div>
+  <div class="col-md-3">
+    <h2><i class="icon-aperture"></i> Compétences</h2>
+    <p class="text-justify">Mes diverses compétences en informatique sont le reflet d'une passion constante et indéfectible pour ce domaine.</p>
+    <a class="btn btn-default" role="button" href="{% resume_skills_url %}">En savoir plus »</a>
+  </div>
+  <div class="col-md-3">
+    <h2><i class="icon-briefcase"></i> Expériences</h2>
+    <p class="text-justify"> Toutes les missions qui m'ont été confiées m'ont permis d'éprouver mes connaissances et de compléter mes compétences.</p>
+    <a class="btn btn-default" role="button" href="{% resume_jobs_url %}">En savoir plus »</a>
+  </div>
+  <div class="col-md-3">
+    <h2><i class="icon-mail-alt"></i> Contact</h2>
+    <p class="text-justify">Mon profil vous intéresse, ou vous avez des questions supplémentaires ? Vous trouverez ici tous les moyens pour me contacter !</p>
+    <a class="btn btn-default" role="button" href="{% contact_url %}">En savoir plus »</a>
+  </div>
+</div>
+{% endblock %}

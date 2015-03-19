@@ -1,0 +1,30 @@
+{% extends "my_resume/timeline.html" %}
+{% load bbcode_tags %}
+{% load resume_tags %}
+{% block my-title %}Diplômes &gt; {{ block.super }}{% endblock %}
+{% block my-content %}
+<div class="page-header">
+  <h1><i class="icon-graduation-cap"></i> Diplômes</h1>
+</div>
+<div>
+  <p>Gages de l'acquisition de connaissances et de compétences, les diplômes récompensent également le travail et l'application mis en œuvre durant toute la scolarité. Fort de cette expérience, et d'un solide bagage, j'ai pu ainsi facilement m'intégrer lors des différentes missions qui m'ont été confiées dès mon accès au monde de l'entreprise.</p>
+</div>
+<ul class="timeline">
+{% for formation in formations %}
+  <li{% if forloop.counter|divisibleby:2 %} class="timeline-inverted"{% endif %}>
+    <div class="timeline-badge info"><i class="icon-graduation-cap"></i></div>
+    <div class="timeline-panel">
+      <div class="timeline-heading">
+        <h4 class="timeline-title">{{ formation.title }}</h4>
+        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> {% if formation.end_date %}{{ formation.end_date|date:"M Y" }}{% else %}{{ formation.start_date|date:"M Y" }}{% endif %}</small></p>
+      </div>
+{%   if formation.description %}
+      <div class="timeline-body">
+        <p>{{ formation.description|bbcode|safe }}</p>
+      </div>
+{%   endif %}
+    </div>
+  </li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,10 @@
+/.project
+/.pydevproject
+/.settings
+/.vscode
+/db.sqlite3
+/static
+/media
+/.env/
+*.pyc
+/my_site/local_settings.py

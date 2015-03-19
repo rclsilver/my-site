@@ -1,0 +1,95 @@
+{% load resume_tags %}
+{% load staticfiles %}
+{% load bbcode_tags %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <style>
+    @font-face {
+    	font-family: "Girls_Have_Many_Secrets";
+    	src: url("{% static 'font/Girls_Have_Many_Secrets.ttf' %}");
+    }
+    @font-face {
+    	font-family: 'brief';
+    	src: url('{% static 'font/brief.ttf' %}');
+    	font-weight: normal;
+    	font-style: normal;
+    }
+    </style>
+    <link rel="stylesheet" href="{% static 'css/pdf.css' %}">
+  </head>
+  <body>
+    <table id="header">
+      <tr>
+        <td class="header_left">
+          <p>
+            <h1 class="header_name">Thomas Bétrancourt</h1>
+            <span class="header_title blue">Ingénieur Systèmes et Réseaux</span>
+          </p>
+        </td>
+        <td rowspan="2" class="header_center"><img src="{% static 'img/thomas-betrancourt_cv.png' %}" /></td>
+        <td rowspan="2" class="header_right">
+          <p class="header_birth">Né le 13 mars 1987 <i class="icon blue"></i></p>
+          <p class="header_phone">06.34.04.75.36 <i class="icon blue"></i></p>
+          <p class="header_mail"><a class="header_mail" href="mailto:thomas@betrancourt.net">thomas@betrancourt.net</a> <i class="icon blue"></i></p>
+          <p class="header_location">Lyon (69) <i class="icon blue"></i></p>
+        </td>
+      </tr>
+      <tr>
+        <td class="header_left_bottom">
+          <span class="header_site"><i class="icon blue"></i> <a class="header_site" href="http://thomas.betrancourt.net/">http://thomas.betrancourt.net/</a></span>
+        </td>
+      </tr>
+    </table>
+    <p class="hr">&nbsp;</p>
+    <div id="jobs">
+      <h2>Expérience professionnelle</h2>
+{% for job in jobs %}
+      <h3 class="job_title">{{ job.title }} <span class="job_date">({% if job.end_date %}{{ job.start_date|date:"M Y" }} - {{ job.end_date|date:"M Y" }}{% else %}depuis {{ job.start_date|date:"M Y" }}{% endif %})</span></h3>
+      <p class="job_subtitle">{% if job.customer %}{{ job.customer }} pour {% endif %}{{ job.employer }}, {{ job.location }}</p>
+      <div class="job_description">
+        <p>{{ job.short_description|bbcode|safe }}</p>
+        {{ job.description|bbcode|safe }}
+      </div>
+{%   if job.nl_after %}
+      <div>
+        <pdf:nextpage />
+      </div>
+{%   endif %}
+{% endfor %}
+    </div>
+    <div id="formations">
+      <h2>Diplômes</h2>
+{% for formation in formations %}
+      <h3 class="formation_title">{{ formation.title }} <span class="formation_date">({{ formation.start_date|date:"M Y" }}{% if formation.end_date %} - {{ formation.end_date|date:"M Y" }}{% endif %})</span></h3>
+      <p class="formation_subtitle">{{ formation.location }}</p>
+{%   if formation.description %}
+      <p class="formation_description">{{ formation.description|bbcode|safe }}</p>
+{%   endif %}
+{% endfor %}
+    </div>
+    <div id="skills">
+      <h2>Compétences</h2>
+      <h3>Langues</h3>
+      <ul>
+{% for lang in languages %}
+        <li>{{ lang.name }} ({% if lang.reading %}lu{% endif %}{% if lang.reading and lang.writing %} / {% endif %}{% if lang.writing %}écrit{% endif %}{% if lang.reading or lang.writing %}{% if lang.speaking %} / {% endif %}{% endif %}{% if lang.speaking %}parlé{% endif %})</li>
+{% endfor %}
+      </ul>
+      <h3>Compétences en informatique</h3>
+      <ul>
+{% for category in skills|skills_by_category %}
+        <li><b>{{ category.0.label }} :</b> {{ category.1|skills_list }}</li>
+{% endfor %}
+      </ul>
+    </div>
+    <div id="hobbies">
+      <h2>Loisirs</h2>
+      <ul>
+{% for category in hobbies %}
+        <li><b>{{ category.label }} :</b> {{ category.hobbies.all|hobbies_list }}</li>
+{% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>
