@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.conf import settings
-from django.conf.urls import patterns, include, url, static
+from django.urls import path, include
 from django.contrib import admin
 
 from my_site.views import HomeView, ContactView, VcardView, RobotsView
@@ -8,15 +7,12 @@ from my_site.views import HomeView, ContactView, VcardView, RobotsView
 
 admin.autodiscover()
 
-
-urlpatterns = patterns('',
-    url(r'^$', HomeView.as_view(), name='home'),
-    url(r'^thomasbetrancourt\.vcf$', VcardView.as_view(), name='vcard'),
-    url(r'^contact\.html$', ContactView.as_view(), name='contact'),
-    url(r'^robots\.txt$', RobotsView.as_view(), name='robots'),
-    url(r'^cv/', include('my_resume.urls', namespace='resume')),
-    url(r'^admin/', include(admin.site.urls)),
-)
-
-if settings.DEBUG:
-    urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns = [
+    path('', HomeView.as_view(), name='home'),
+    path('thomas-betrancourt.vcf', VcardView.as_view(), name='vcard'),
+    path('contact.html', ContactView.as_view(), name='contact'),
+    path('robots.txt', RobotsView.as_view(), name='robots'),
+    path('cv/', include('my_resume.urls', namespace='resume')),
+    path('admin/', admin.site.urls),
+    path('health/', include('health_check.urls')),
+]

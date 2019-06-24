@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import template
-from django.core.urlresolvers import reverse
+from django.urls import reverse_lazy
 
 
 register = template.Library()
@@ -8,32 +8,32 @@ register = template.Library()
 
 @register.simple_tag
 def resume_formations_url():
-    return reverse("resume:formations")
+    return reverse_lazy("resume:formations")
 
 
 @register.simple_tag
 def resume_skills_url():
-    return reverse("resume:skills")
+    return reverse_lazy("resume:skills")
 
 
 @register.simple_tag
 def resume_jobs_url():
-    return reverse("resume:jobs")
+    return reverse_lazy("resume:jobs")
 
 
 @register.simple_tag
 def resume_hobbies_url():
-    return reverse("resume:hobbies")
+    return reverse_lazy("resume:hobbies")
 
 
 @register.simple_tag
 def resume_download_url():
-    return reverse("resume:download")
+    return reverse_lazy("resume:download")
 
 
 @register.simple_tag
 def resume_download_pdf_url():
-    return reverse("resume:download-pdf")
+    return reverse_lazy("resume:download-pdf")
 
 
 @register.filter
@@ -48,7 +48,7 @@ def skills_by_category(skills):
     skills_array = {}
     for skill in skills.all():
         skills_array.setdefault(skill.category, []).append(skill)
-    return tuple((c, tuple(s)) for c, s in skills_array.iteritems())
+    return tuple((c, tuple(s)) for c, s in skills_array.items())
 
 
 @register.filter

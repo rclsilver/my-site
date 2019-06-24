@@ -10,7 +10,7 @@ class SkillCategory(models.Model):
     def skills_labels(self):
         return ", ".join(list((s.label for s in self.skills.all())))
     
-    def __unicode__(self):
+    def __str__(self):
         return self.label
     
     class Meta:
@@ -33,7 +33,7 @@ class Skill(models.Model):
     
     label = models.CharField(_("label"), max_length=32, unique=True)
     level = models.PositiveIntegerField(_("level"), null=True, blank=True, choices=LEVEL_CHOICES)
-    category = models.ForeignKey(SkillCategory, verbose_name=_("category"), related_name="skills")
+    category = models.ForeignKey(SkillCategory, verbose_name=_("category"), related_name="skills", on_delete=models.CASCADE)
     
     @property
     def level_label(self):
@@ -41,7 +41,7 @@ class Skill(models.Model):
             if self.level == l[0]:
                 return l[1]
 
-    def __unicode__(self):
+    def __str__(self):
         return self.label
 
     class Meta:
@@ -55,7 +55,7 @@ class Customer(models.Model):
     def jobs_count(self):
         return self.jobs.count()
     
-    def __unicode__(self):
+    def __str__(self):
         return self.name
     
     class Meta:
@@ -69,7 +69,7 @@ class Employer(models.Model):
     def jobs_count(self):
         return self.jobs.count()
     
-    def __unicode__(self):
+    def __str__(self):
         return self.name
     
     class Meta:
@@ -82,14 +82,14 @@ class Job(models.Model):
     location = models.CharField(_("location"), max_length=32)
     start_date = models.DateField(_("start date"))
     end_date = models.DateField(_("end date"), null=True, blank=True)
-    employer = models.ForeignKey(Employer, verbose_name=_("employer"), related_name="jobs")
-    customer = models.ForeignKey(Customer, verbose_name=_("customer"), related_name="jobs", null=True, blank=True)
+    employer = models.ForeignKey(Employer, verbose_name=_("employer"), related_name="jobs", on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, verbose_name=_("customer"), related_name="jobs", null=True, blank=True, on_delete=models.SET_NULL)
     short_description = models.TextField(_("short description"))
     description = models.TextField(_("description"), null=True, blank=True)
     skills = models.ManyToManyField(Skill, blank=True, verbose_name=_("skills"), related_name="jobs")
     nl_after = models.BooleanField(_("new line after"), default=False)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.title
     
     class Meta:
@@ -104,7 +104,7 @@ class Formation(models.Model):
     end_date = models.DateField(_("end date"), null=True, blank=True)
     description = models.TextField(_("description"), null=True, blank=True)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.title
     
     class Meta:
@@ -120,7 +120,7 @@ class HobbyCategory(models.Model):
     def hobbies_labels(self):
         return ", ".join(list((h.name for h in self.hobbies.all())))
     
-    def __unicode__(self):
+    def __str__(self):
         return self.label
     
     class Meta:
@@ -131,9 +131,9 @@ class HobbyCategory(models.Model):
 
 class Hobby(models.Model):
     name = models.CharField(_("name"), max_length=32, unique=True)
-    category = models.ForeignKey(HobbyCategory, verbose_name=_("category"), related_name="hobbies")
+    category = models.ForeignKey(HobbyCategory, verbose_name=_("category"), related_name="hobbies", on_delete=models.CASCADE)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.name
     
     class Meta:
@@ -148,7 +148,7 @@ class Language(models.Model):
     writing = models.BooleanField(_("writing"))
     speaking = models.BooleanField(_("speaking"))
     
-    def __unicode__(self):
+    def __str__(self):
         return self.name
     
     class Meta:

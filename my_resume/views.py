@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-from StringIO import StringIO
-
 from django.http.response import HttpResponse
 from django.template.context import RequestContext
 from django.template.loader import get_template
 from django.views.generic.base import TemplateView, View, ContextMixin
+from io import BytesIO
 from xhtml2pdf import pisa
 
 from my_resume.models import Formation, Skill, Job, HobbyCategory, Language
@@ -76,11 +75,17 @@ class DownloadPdfView(ContextMixin, View):
         # Génération du contenu HTML
         template = get_template(self.template_name)
         context = self.get_context_data(**kwargs)
-        html = template.render(RequestContext(request, context))
-        
+        html = template.render(
+            RequestContext(request, context).flatten()
+        )
+
         # Génération du contenu PDF
-        pdf_file = StringIO()
-        pisa.CreatePDF(html, dest=pdf_file, link_callback=self.link_callback)
+        pdf_file = BytesIO()
+        pisa.CreatePDF(
+            html,
+            dest=pdf_file,
+            link_callback=self.link_callback
+        )
         pdf = pdf_file.getvalue()
         pdf_file.close()
         
@@ -88,9 +93,9 @@ class DownloadPdfView(ContextMixin, View):
         force_dl = str(request.GET.get("force-dl", 1))
         
         if force_dl in [1, 'true', '1', 'y']:
-            response = HttpResponse(pdf, content_type="application/force-download")
-            response["Content-Disposition"] = "attachment; filename=\"CV - Thomas Bétrancourt.pdf\""
+            response = HttpResponse(pdf, content_type='application/force-download')
+            response['Content-Disposition'] = 'attachment; filename="CV - Thomas BETRANCOURT.pdf"'
         else:
-            response = HttpResponse(pdf, content_type="application/pdf")
+            response = HttpResponse(pdf, content_type='application/pdf')
         
         return response

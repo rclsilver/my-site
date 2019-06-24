@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import template
-from django.core import urlresolvers
-from django.core.urlresolvers import reverse
+from django.urls import reverse_lazy, resolve
 import re
 
 
@@ -11,22 +10,26 @@ register = template.Library()
 def current_url_equals(context, url_name, **kwargs):
     resolved = False
     try:
-        resolved = urlresolvers.resolve(context.get("request").path)
+        resolved = resolve(context.get("request").path)
     except:
         pass
     
     current_url = False
     
-    if resolved and resolved.namespace: current_url = "%s:%s" % (resolved.namespace, resolved.url_name)
-    elif resolved: current_url = resolved.url_name
+    if resolved and resolved.namespace:
+        current_url = "%s:%s" % (resolved.namespace, resolved.url_name)
+    elif resolved:
+        current_url = resolved.url_name
 
     matches = current_url and re.match(url_name, current_url)
+
     if matches and kwargs:
         for key in kwargs:
             kwarg = kwargs.get(key)
             resolved_kwarg = resolved.kwargs.get(key)
             if not resolved_kwarg or kwarg != resolved_kwarg:
                 return False
+
     return matches
 
 
@@ -38,14 +41,14 @@ def current_page_class(context, url_name, return_value='active'):
 
 @register.simple_tag
 def home_url():
-    return reverse("home")
+    return reverse_lazy("home")
 
 
 @register.simple_tag
 def contact_url():
-    return reverse("contact")
+    return reverse_lazy("contact")
 
 
 @register.simple_tag
 def vcard_url():
-    return reverse("vcard")
+    return reverse_lazy("vcard")

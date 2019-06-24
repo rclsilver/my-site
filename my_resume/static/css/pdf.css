@@ -15,11 +15,10 @@
 /********
  * Page *
  ********/
-body {
+ body {
 	font-family: 'Verdana';
 	color: #666666;
 }
- 
  
 .icon {
 	font-family: 'brief';	
@@ -35,12 +34,11 @@ body {
 }
 
 h2 {
-	border-left: 2px solid #33CCFF;
-	border-bottom: 2px solid #33CCFF;
-	padding-left: 0.5em;
-	padding-bottom: -0.3em;
+	padding-bottom: -0.5em;
 	font-size: 1.5em;
 	color: #33CCFF;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
 }
 
 /**********
